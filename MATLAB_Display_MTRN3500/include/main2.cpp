@@ -1,0 +1,24 @@
+#include "Display.h"
+#include <conio.h>
+#include <LiDAR.h>
+
+using namespace System;
+using namespace System::Threading;
+
+int main(void)
+{
+	LiDAR^ LMS151 = gcnew LiDAR(nullptr, nullptr);
+
+	LMS151->connect("192.168.0.1", 2111);
+
+	while (!_kbhit())
+	{
+		LMS151->communicate();
+		Thread::Sleep(50);
+	}
+
+	Console::ReadKey();
+	Console::ReadKey();
+
+	return 0;
+}
